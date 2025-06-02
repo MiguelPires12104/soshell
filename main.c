@@ -23,10 +23,17 @@ int main()
     if (linha[len - 1] == '\n')
       linha[len - 1] = '\0';
 
+    add_to_history(linha);
+
     int numargs = parse(linha, args);
 
     if (!builtin(args))
       execute(numargs, args); /* executa o comando */
+
+    if (strcmp(args[0], "history") == 0) {
+    show_history();
+    continue; // Volta ao loop sem executar
+    }
   }
 
   return 0;

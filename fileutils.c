@@ -1,5 +1,9 @@
 #include "shell.h"
 
+#define HISTORY_SIZE 10
+char *history[HISTORY_SIZE];
+int history_count = 0;
+
 void maior(char *file1, char *file2) {
     struct stat stat1, stat2;
     stat(file1, &stat1);
@@ -53,4 +57,23 @@ void sols(char *file)
     printf("Nome: %s INode: %ld  Tamanho: %ld Hora: %s \n", dirp->d_name, dirp->d_ino, var.st_size, ctime(&var.st_ctime));
   }
   closedir(dp);
+}
+
+void add_to_history(char *command) {
+    int index = history_count % HISTORY_SIZE;
+    if (history[index]) {
+        free(history[index]);
+    }
+    history[index] = strdup(command);
+    history_count++;
+}
+
+void show_history() {
+    int start = (history_count >= HISTORY_SIZE) ? (history_count % HISTORY_SIZE) : 0;
+    int count = (history_count >= HISTORY_SIZE) ? HISTORY_SIZE : history_count;
+
+    for (int i = 0; i < count; i++) {
+        int index = (start + i) % HISTORY_SIZE;
+        printf("%d: %s\n", i + 1, history[index]);
+    }
 }

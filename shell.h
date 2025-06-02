@@ -66,6 +66,9 @@ void setx(char *filename);
 void removerl(char *filename);
 void sols(char *pasta);
 
+void add_to_history(char *command);
+void show_history();
+
 /* constantes que podem tornar uteis*/
 
 

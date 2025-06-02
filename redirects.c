@@ -18,7 +18,7 @@ int redirects(int numargs, char *args[])
         return numargs;
 
     // 1. Redirecionamento de erro (2>)
-    else if (strcmp(args[numargs - 2], "2>") == 0) {
+    else if (strcmp(args[numargs - 2], "ERROS") == 0) {
         int fd = creat(args[numargs - 1], FILE_MODE);
         numargs = dupandclose(fd, STDERR_FILENO, numargs, args);
 
